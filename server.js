@@ -2,6 +2,7 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const cors = require("cors");
 const pdf = require("html-pdf");
 const responseFile = require("./responseFile");
 console.log(responseFile);
