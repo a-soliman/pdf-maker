@@ -1,0 +1,19 @@
+const fs = require("fs");
+
+module.exports = (filePath, fileName, response) => {
+  // Check if file specified by the filePath exists
+  fs.exists(filePath, function(exists) {
+    if (exists) {
+      // Content-type is very interesting part that guarantee that
+      // Web browser will handle response in an appropriate manner.
+      response.writeHead(200, {
+        "Content-Type": "application/octet-stream",
+        "Content-Disposition": "attachment; filename=" + fileName
+      });
+      fs.createReadStream(filePath).pipe(response);
+    } else {
+      response.writeHead(400, { "Content-Type": "text/plain" });
+      response.end("ERROR File does not exist");
+    }
+  });
+};
